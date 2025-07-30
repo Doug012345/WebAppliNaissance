@@ -26,6 +26,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<IEmailSender, NewEmailSender>();
+builder.WebHost.UseSetting("hotReloadEnabled", "false");
 
 // Création de l'application
 var app = builder.Build();
