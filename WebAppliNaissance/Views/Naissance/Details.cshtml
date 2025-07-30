@@ -1,0 +1,97 @@
+﻿
+@model WebAppliNaissance.Models.Naissance
+
+@{
+    ViewData["Title"] = "Détails de la naissance";
+}
+
+<h1>Détails de la naissance</h1>
+
+<div>
+    <h4>Naissance</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumeroActe)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumeroActe)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NomEnfant)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NomEnfant)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PrenomEnfant)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PrenomEnfant)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateNaissance)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateNaissance)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HeureNaissance)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HeureNaissance)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LieuNaissance)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LieuNaissance)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sexe)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sexe)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NomPere)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NomPere)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PrenomPere)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PrenomPere)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NomMere)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NomMere)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PrenomMere)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PrenomMere)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateEnregistrement)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateEnregistrement)
+        </dd>
+        <dt class="col-sm-2">
+            Déclarant
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Declarant.Nom @Model.Declarant.Prenom - @Model.Declarant.LienAvecEnfant
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Certificat" asp-route-id="@Model.Id" class="btn btn-secondary">Voir le certificat</a>
+    <a asp-action="Index" class="btn btn-primary">Retour à la liste</a>
+</div>

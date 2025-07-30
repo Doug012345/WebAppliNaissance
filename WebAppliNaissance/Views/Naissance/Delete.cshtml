@@ -1,0 +1,35 @@
+﻿@model WebAppliNaissance.Models.Naissance
+
+@{
+    ViewData["Title"] = "Supprimer Naissance";
+}
+
+<h2>Supprimer une naissance</h2>
+
+<h4>Êtes-vous sûr de vouloir supprimer cette entrée ?</h4>
+<hr />
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Nom</dt>
+        <dd class="col-sm-10">@Model.NomEnfant</dd>
+
+        <dt class="col-sm-2">Prénom</dt>
+        <dd class="col-sm-10">@Model.PrenomEnfant</dd>
+
+        <dt class="col-sm-2">Date</dt>
+        <dd class="col-sm-10">@Model.DateNaissance.ToShortDateString()</dd>
+
+        <dt class="col-sm-2">Lieu</dt>
+        <dd class="col-sm-10">@Model.LieuNaissance</dd>
+
+        <dt class="col-sm-2">N° Acte</dt>
+        <dd class="col-sm-10">@Model.NumeroActe</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+        <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>

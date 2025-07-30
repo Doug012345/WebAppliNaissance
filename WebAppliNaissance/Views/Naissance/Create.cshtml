@@ -1,0 +1,150 @@
+﻿@model WebAppliNaissance.Models.Naissance
+
+@{
+    ViewData["Title"] = "Enregistrer une nouvelle naissance";
+}
+
+<h1>Enregistrer une nouvelle naissance</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <h4>Informations sur l'enfant</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="NomEnfant" class="control-label"></label>
+                        <input asp-for="NomEnfant" class="form-control" />
+                        <span asp-validation-for="NomEnfant" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="PrenomEnfant" class="control-label"></label>
+                        <input asp-for="PrenomEnfant" class="form-control" />
+                        <span asp-validation-for="PrenomEnfant" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="DateNaissance" class="control-label"></label>
+                        <input asp-for="DateNaissance" type="date" class="form-control" />
+                        <span asp-validation-for="DateNaissance" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="HeureNaissance" class="control-label"></label>
+                        <input asp-for="HeureNaissance" type="time" class="form-control" />
+                        <span asp-validation-for="HeureNaissance" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Sexe" class="control-label"></label>
+                        <select asp-for="Sexe" class="form-control">
+                            <option value="Masculin">Masculin</option>
+                            <option value="Féminin">Féminin</option>
+                        </select>
+                        <span asp-validation-for="Sexe" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LieuNaissance" class="control-label"></label>
+                <input asp-for="LieuNaissance" class="form-control" />
+                <span asp-validation-for="LieuNaissance" class="text-danger"></span>
+            </div>
+
+            <h4>Informations sur les parents</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="NomPere" class="control-label"></label>
+                        <input asp-for="NomPere" class="form-control" />
+                        <span asp-validation-for="NomPere" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="PrenomPere" class="control-label"></label>
+                        <input asp-for="PrenomPere" class="form-control" />
+                        <span asp-validation-for="PrenomPere" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="NomMere" class="control-label"></label>
+                        <input asp-for="NomMere" class="form-control" />
+                        <span asp-validation-for="NomMere" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="PrenomMere" class="control-label"></label>
+                        <input asp-for="PrenomMere" class="form-control" />
+                        <span asp-validation-for="PrenomMere" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Informations sur le déclarant</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Nom du déclarant</label>
+                        <input name="Declarant.Nom" class="form-control" required />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Prénom du déclarant</label>
+                        <input name="Declarant.Prenom" class="form-control" required />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Lien avec l'enfant</label>
+                        <input name="Declarant.LienAvecEnfant" class="form-control" required />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Adresse du déclarant</label>
+                        <input name="Declarant.Adresse" class="form-control" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">CNI du déclarant</label>
+                        <input name="Declarant.CNI" class="form-control" required />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Enregistrer" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -26,5 +26,20 @@ namespace WebAppliNaissance.Models
         [Required]
         [Display(Name = "Lien avec l'enfant")]
         public string LienAvecEnfant { get; set; }
+
+        // Constructeur pour initialiser les propriétés obligatoires
+        public Declarant(string nom, string prenom, string adresse, string cni, string lienAvecEnfant)
+        {
+            Nom = nom;
+            Prenom = prenom;
+            Adresse = adresse;
+            CNI = cni;
+            LienAvecEnfant = lienAvecEnfant;
+        }
+
+        // Constructeur sans paramètre si nécessaire (par exemple pour EF)
+        public Declarant()
+        {
+        }
     }
 }

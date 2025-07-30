@@ -1,0 +1,89 @@
+﻿@model WebAppliNaissance.Models.Naissance
+
+@{
+    ViewData["Title"] = "Modifier Naissance";
+}
+
+<h2>Modifier une naissance</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="NomEnfant"></label>
+        <input asp-for="NomEnfant" class="form-control" />
+        <span asp-validation-for="NomEnfant" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PrenomEnfant"></label>
+        <input asp-for="PrenomEnfant" class="form-control" />
+        <span asp-validation-for="PrenomEnfant" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateNaissance"></label>
+        <input asp-for="DateNaissance" class="form-control" type="date" />
+        <span asp-validation-for="DateNaissance" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="HeureNaissance"></label>
+        <input asp-for="HeureNaissance" class="form-control" type="time" />
+        <span asp-validation-for="HeureNaissance" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LieuNaissance"></label>
+        <input asp-for="LieuNaissance" class="form-control" />
+        <span asp-validation-for="LieuNaissance" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Sexe"></label>
+        <select asp-for="Sexe" class="form-control">
+            <option value="">-- Sélectionner --</option>
+            <option value="M">Masculin</option>
+            <option value="F">Féminin</option>
+        </select>
+        <span asp-validation-for="Sexe" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NomPere"></label>
+        <input asp-for="NomPere" class="form-control" />
+        <span asp-validation-for="NomPere" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PrenomPere"></label>
+        <input asp-for="PrenomPere" class="form-control" />
+        <span asp-validation-for="PrenomPere" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NomMere"></label>
+        <input asp-for="NomMere" class="form-control" />
+        <span asp-validation-for="NomMere" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PrenomMere"></label>
+        <input asp-for="PrenomMere" class="form-control" />
+        <span asp-validation-for="PrenomMere" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NumeroActe"></label>
+        <input asp-for="NumeroActe" class="form-control" readonly />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

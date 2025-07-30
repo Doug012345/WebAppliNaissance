@@ -1,0 +1,51 @@
+﻿
+@model WebAppliNaissance.Models.Naissance
+
+@{
+    ViewData["Title"] = "Certificat de naissance";
+}
+
+<div class="certificate">
+    <div class="certificate-header">
+        <div class="certificate-title">REPUBLIQUE DE [PAYS]</div>
+        <div>MINISTERE DE L'INTERIEUR</div>
+        <div>MAIRIE DE [VILLE]</div>
+        <div>CERTIFICAT DE NAISSANCE</div>
+    </div>
+
+    <div class="certificate-body">
+        <p>Le Maire de la commune de [VILLE],</p>
+
+        <p>Certifie que :</p>
+
+        <p>
+            <strong>@Model.NomEnfant @Model.PrenomEnfant</strong>, de sexe <strong>@Model.Sexe</strong>,<br />
+            est né(e) le <strong>@Model.DateNaissance.ToString("dd/MM/yyyy")</strong> à <strong>@Model.HeureNaissance.ToString("HH:mm")</strong><br />
+            à <strong>@Model.LieuNaissance</strong>.
+        </p>
+
+        <p>
+            Fils de : <strong>@Model.NomPere @Model.PrenomPere</strong><br />
+            et de : <strong>@Model.NomMere @Model.PrenomMere</strong>
+        </p>
+
+        <p>
+            Déclaré(e) par : <strong>@Model.Declarant.Nom @Model.Declarant.Prenom</strong><br />
+            Lien avec l'enfant : <strong>@Model.Declarant.LienAvecEnfant</strong><br />
+            Numéro d'acte : <strong>@Model.NumeroActe</strong>
+        </p>
+
+        <p>Enregistré dans le registre des naissances de la commune de [VILLE] le @Model.DateEnregistrement.ToString("dd/MM/yyyy")</p>
+    </div>
+
+    <div class="signature">
+        <p>Fait à [VILLE], le @DateTime.Now.ToString("dd/MM/yyyy")</p>
+        <p>Le Maire,</p>
+        <p>_________________________</p>
+    </div>
+</div>
+
+<div class="text-center">
+    <button onclick="printCertificate()" class="btn btn-primary print-button">Imprimer le certificat</button>
+    <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
+</div>
