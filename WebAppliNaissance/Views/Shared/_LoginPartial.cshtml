@@ -1,27 +1,54 @@
 @using Microsoft.AspNetCore.Identity
-
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-    </li>
-    <li class="nav-item">
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <!-- Menu Naissance -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark" href="#" id="naissanceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Naissances
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-controller="Naissance" asp-action="Index">Liste des naissances</a></li>
+                <li><a class="dropdown-item" asp-controller="Naissance" asp-action="Create">Ajouter une naissance</a></li>
+            </ul>
+        </li>
+
+        <!-- Menu Declarant -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark" href="#" id="declarantDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Déclarants
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-controller="Declarant" asp-action="Index">Liste des déclarants</a></li>
+                <li><a class="dropdown-item" asp-controller="Declarant" asp-action="Create">Ajouter un déclarant</a></li>
+            </ul>
+        </li>
+
+        <!-- Profil utilisateur -->
+        <li class="nav-item">
+            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                Bonjour @UserManager.GetUserName(User)!
+            </a>
+        </li>
+
+        <!-- Déconnexion -->
+        <li class="nav-item">
+            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Se déconnecter</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <!-- Lien vers Register/Login si utilisateur non connecté -->
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">S'inscrire</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Se connecter</a>
+        </li>
+    }
 </ul>
