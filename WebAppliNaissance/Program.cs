@@ -1,20 +1,17 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using WebAppliNaissance.Data;
+using WebAppliNaissance.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuration de la cha�ne de connexion
+// Configuration de la chaîne de connexion
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
-
-// Exception filter pour les erreurs de BDD en dev
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-// Ajout de l'identit� avec r�les
+// ** Correction : utiliser AddIdentity pour gérer les rôles **
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
@@ -22,11 +19,15 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
-// Ajout des contr�leurs + Razor pages
+// Exception filter pour les erreurs de BDD en dev
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+// Ajout des contrôleurs + Razor pages
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddTransient<IEmailSender, NewEmailSender>();
 
-// Cr�ation de l'application
+// Création de l'application
 var app = builder.Build();
 
 // Middleware HTTP
@@ -56,7 +57,7 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
-// Seed des r�les et de l'admin
+// Seed des rôles et de l'admin
 await SeedRolesAndAdminAsync(app.Services);
 
 app.Run();
@@ -100,7 +101,7 @@ async Task SeedRolesAndAdminAsync(IServiceProvider services)
             var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
             foreach (var error in result.Errors)
             {
-                logger.LogError("Erreur lors de la cr�ation de l'admin: {Error}", error.Description);
+                logger.LogError("Erreur lors de la création de l'admin: {Error}", error.Description);
             }
         }
     }
