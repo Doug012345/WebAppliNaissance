@@ -11,7 +11,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// ** Correction : utiliser AddIdentity pour gérer les rôles **
+// Ajouter Identity avec les rôles
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
@@ -19,16 +19,15 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
-// Exception filter pour les erreurs de BDD en dev
+// Exception filter pour les erreurs en dev
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Ajout des contrôleurs + Razor pages
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddTransient<IEmailSender, NewEmailSender>();
-builder.WebHost.UseSetting("hotReloadEnabled", "false");
 
-// Création de l'application
+builder.Services.AddTransient<IEmailSender, NewEmailSender>();
+
 var app = builder.Build();
 
 // Middleware HTTP
@@ -51,14 +50,13 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Routes MVC et Razor Pages
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
 
-// Seed des rôles et de l'admin
+// Seed des rôles et admin
 await SeedRolesAndAdminAsync(app.Services);
 
 app.Run();
@@ -89,12 +87,15 @@ async Task SeedRolesAndAdminAsync(IServiceProvider services)
         {
             UserName = adminEmail,
             Email = adminEmail,
-            EmailConfirmed = true
         };
 
         var result = await userManager.CreateAsync(adminUser, adminPassword);
         if (result.Succeeded)
         {
+            // Confirmer l'email explicitement
+            adminUser.EmailConfirmed = true;
+            await userManager.UpdateAsync(adminUser);
+
             await userManager.AddToRoleAsync(adminUser, "Admin");
         }
         else
