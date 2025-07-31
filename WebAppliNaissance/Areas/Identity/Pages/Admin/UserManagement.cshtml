@@ -1,0 +1,25 @@
+﻿@page
+@model WebAppliNaissance.Areas.Identity.Pages.Admin.UserManagementModel
+@{
+    ViewData["Title"] = "Gestion des utilisateurs";
+}
+
+<h1>Gestion des utilisateurs</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Rôles</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.User.Email</td>
+                <td>@string.Join(", ", user.Roles)</td>
+            </tr>
+        }
+    </tbody>
+</table>
