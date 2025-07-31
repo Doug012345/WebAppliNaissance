@@ -1,10 +1,13 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Mairie - Enregistrement des naissances</title>
+    <title>@ViewData["Title"] Mairie | Enregistrement des naissances</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     @* <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> *@
     <link rel="stylesheet" href="~/css/site.css" />
@@ -48,26 +51,73 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #003366;">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Mairie - Enregistrement des naissances</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand text-white" href="/">Mairie - Enregistrement des naissances</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Accueil</a>
+                            <a class="nav-link text-white" href="/">Accueil</a>
                         </li>
-                        @if (User.Identity.IsAuthenticated)
+                    </ul>
+
+                    <ul class="navbar-nav">
+                        @if (SignInManager.IsSignedIn(User))
                         {
+                            <!-- Menu Naissance -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="naissanceDropdown" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    Naissances
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="Naissance" asp-action="Index">Liste des naissances</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Naissance" asp-action="Create">Ajouter une naissance</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- Menu Declarant -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="declarantDropdown" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    Déclarants
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="Declarant" asp-action="Index">Liste des déclarants</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Declarant" asp-action="Create">Ajouter un déclarant</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- Profil utilisateur -->
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Naissance" asp-action="Index">Naissances</a>
+                                <a id="manage" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index">
+                                    Bonjour @UserManager.GetUserName(User)!
+                                </a>
+                            </li>
+
+                            <!-- Déconnexion -->
+                            <li class="nav-item">
+                                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+                                      asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                    <button id="logout" type="submit" class="nav-link btn btn-link text-white border-0">Se déconnecter</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <!-- Connexion/Inscription -->
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">S'inscrire</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">Se connecter</a>
                             </li>
                         }
                     </ul>
-                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>

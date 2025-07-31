@@ -1,5 +1,9 @@
 ﻿@page
 @using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 @model WebAppliNaissance.Areas.Identity.Pages.Account.RegisterModel
 @{
     ViewData["Title"] = "Register";
@@ -36,7 +40,7 @@
             </div>
 
             <!-- Rôle -->
-            <div class="form-floating mb-3">
+            @* <div class="form-floating mb-3">
                 <select asp-for="Input.Role" class="form-control" id="Input_Role" aria-required="true">
                     <option value="">-- Sélectionner un rôle --</option>
                     <option value="Agent">Agent</option>
@@ -44,7 +48,19 @@
                 </select>
                 <label asp-for="Input.Role">Rôle</label>
                 <span asp-validation-for="Input.Role" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="Input.Role"></label>
+                <select asp-for="Input.Role" class="form-control" asp-items="GetRolesForUser()">
+                    <option value="">-- Sélectionnez un rôle --</option>
+                    @foreach (var role in GetRolesForUser())
+                    {
+                        <option value="@role.Value">@role.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="Input.Role" class="text-danger"></span>
             </div>
+
 
             <!-- Code Admin (affiché seulement si "Admin" est sélectionné) -->
             <div class="form-floating mb-3" id="code-admin-div" style="display:none;">
@@ -109,6 +125,26 @@
                     if (inputCode) inputCode.value = "";
                 }
             }
+                @functions {
+            public List<SelectListItem> GetRolesForUser()
+            {
+                    var roles = new List<SelectListItem>
+                        {
+                                new SelectListItem { Value = "Admin", Text = "Admin" }
+                        };
+
+                    if (SignInManager.IsSignedIn(User))
+                    {
+                            var user = UserManager.GetUserAsync(User).Result;
+                            if (user != null && UserManager.IsInRoleAsync(user, "Admin").Result)
+                            {
+                                    roles.Add(new SelectListItem { Value = "Agent", Text = "Agent" });
+                            }
+                    }
+
+                    return roles;
+            }
+    }
 
             roleSelect.addEventListener("change", toggleCodeAdmin);
             toggleCodeAdmin(); // Initial execution
