@@ -1,0 +1,53 @@
+﻿@model WebAppliNaissance.Models.Declarant
+
+@{
+    ViewData["Title"] = "Détails du Déclarant";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>Déclarant</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prenom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prenom)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Adresse)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Adresse)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CNI)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CNI)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LienAvecEnfant)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LienAvecEnfant)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Modifier</a>
+    <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
+</div>

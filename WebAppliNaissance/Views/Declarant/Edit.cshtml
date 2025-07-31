@@ -1,0 +1,52 @@
+﻿@model WebAppliNaissance.Models.Declarant
+
+@{
+    ViewData["Title"] = "Modifier Déclarant";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Nom" class="control-label"></label>
+        <input asp-for="Nom" class="form-control" />
+        <span asp-validation-for="Nom" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Prenom" class="control-label"></label>
+        <input asp-for="Prenom" class="form-control" />
+        <span asp-validation-for="Prenom" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Adresse" class="control-label"></label>
+        <input asp-for="Adresse" class="form-control" />
+        <span asp-validation-for="Adresse" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CNI" class="control-label"></label>
+        <input asp-for="CNI" class="form-control" />
+        <span asp-validation-for="CNI" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LienAvecEnfant" class="control-label"></label>
+        <input asp-for="LienAvecEnfant" class="form-control" />
+        <span asp-validation-for="LienAvecEnfant" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

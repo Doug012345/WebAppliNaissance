@@ -1,0 +1,36 @@
+﻿@model WebAppliNaissance.Models.Declarant
+
+@{
+    ViewData["Title"] = "Supprimer Déclarant";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>Voulez-vous vraiment supprimer ce déclarant ?</h3>
+
+<div>
+    <h4>Déclarant</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Nom</dt>
+        <dd class="col-sm-10">@Model.Nom</dd>
+
+        <dt class="col-sm-2">Prénom</dt>
+        <dd class="col-sm-10">@Model.Prenom</dd>
+
+        <dt class="col-sm-2">Adresse</dt>
+        <dd class="col-sm-10">@Model.Adresse</dd>
+
+        <dt class="col-sm-2">CNI</dt>
+        <dd class="col-sm-10">@Model.CNI</dd>
+
+        <dt class="col-sm-2">Lien avec l'enfant</dt>
+        <dd class="col-sm-10">@Model.LienAvecEnfant</dd>
+    </dl>
+
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+        <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>

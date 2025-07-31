@@ -1,0 +1,50 @@
+﻿@model IEnumerable<WebAppliNaissance.Models.Declarant>
+
+@{
+    ViewData["Title"] = "Liste des Déclarants";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Créer un nouveau déclarant</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().Nom)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Prenom)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Adresse)</th>
+            <th>@Html.DisplayNameFor(model => model.First().CNI)</th>
+            <th>@Html.DisplayNameFor(model => model.First().LienAvecEnfant)</th>
+            <th></th> <!-- Actions -->
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nom</td>
+                    <td>@item.Prenom</td>
+                    <td>@item.Adresse</td>
+                    <td>@item.CNI</td>
+                    <td>@item.LienAvecEnfant</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Détails</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Modifier</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" class="text-center">Aucun déclarant trouvé.</td>
+            </tr>
+        }
+    </tbody>
+</table>
