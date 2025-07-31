@@ -19,9 +19,26 @@ namespace WebAppliNaissance.Controllers
 
         // GET: Naissance
         [Authorize(Roles = "Admin,Agent")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Naissances.Include(n => n.Declarant).ToListAsync());
+            var naissances = from n in _context.Naissances.Include(n => n.Declarant)
+                             select n;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                naissances = naissances.Where(n =>
+                    n.NomEnfant.Contains(searchString) ||
+                    n.PrenomEnfant.Contains(searchString) ||
+                    n.NumeroActe.Contains(searchString) ||
+                    n.Declarant.Nom.Contains(searchString) ||
+                    n.Declarant.Prenom.Contains(searchString)
+                );
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            return View(await naissances.ToListAsync());
+            //return View(await _context.Naissances.Include(n => n.Declarant).ToListAsync());
         }
 
         // GET: Naissance/Details/5
