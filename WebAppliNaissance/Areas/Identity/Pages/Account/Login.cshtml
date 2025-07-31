@@ -9,6 +9,12 @@
 <div class="row">
     <div class="col-md-4">
         <section>
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div id="success-alert" class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
             <form id="account" method="post">
                 <h2>Use a local account to log in.</h2>
                 <hr />
@@ -80,4 +86,14 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        setTimeout(function () {
+            const alertBox = document.getElementById('success-alert');
+            if (alertBox) {
+                alertBox.style.transition = "opacity 0.5s ease-out";
+                alertBox.style.opacity = "0";
+                setTimeout(() => alertBox.remove(), 500); // Retirer du DOM après fade out
+            }
+        }, 10000); // 10000 ms = 10 secondes
+    </script>
 }

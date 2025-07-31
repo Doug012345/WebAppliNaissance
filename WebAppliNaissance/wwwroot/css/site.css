@@ -1,4 +1,4 @@
-html {
+/*html {
     font-size: 14px;
 }
 
@@ -34,4 +34,128 @@ body {
 .form-floating > .form-control-plaintext:focus,
 .form-floating > .form-control:focus {
     text-align: start;
+}
+*/
+
+/* Import Roboto font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    background-color: #f0f0f0;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+}
+
+/* === NAVBAR === */
+.navbar {
+    background-color: #003366;
+}
+
+    .navbar .nav-link,
+    .navbar .navbar-brand {
+        color: white !important;
+    }
+
+        .navbar .nav-link:hover {
+            text-decoration: underline;
+        }
+
+/* === BUTTONS === */
+.btn,
+button {
+    background-color: #28a745;
+    color: white;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out;
+}
+
+    .btn:hover,
+    button:hover {
+        background-color: #218838;
+        transform: scale(1.05);
+    }
+
+/* === TABLES (liste des naissances, etc.) === */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+    table th, table td {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    table th {
+        background-color: #003366;
+        color: white;
+    }
+
+/* === CERTIFICAT === */
+.certificate {
+    border: 3px double #000;
+    padding: 30px;
+    background: white;
+    max-width: 800px;
+    margin: 40px auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.certificate-header {
+    text-align: center;
+    border-bottom: 2px solid #000;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.certificate-title {
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.certificate-body {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.signature {
+    margin-top: 50px;
+    text-align: right;
+    font-style: italic;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .navbar .navbar-collapse {
+        text-align: center;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+        table td {
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 50%;
+        }
+
+            table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                top: 12px;
+                font-weight: bold;
+                padding-left: 15px;
+            }
+
+    .certificate {
+        padding: 20px;
+    }
 }
