@@ -1,19 +1,33 @@
-﻿
-@model WebAppliNaissance.Models.Naissance
+﻿@model WebAppliNaissance.Models.Naissance
 
 @{
     ViewData["Title"] = "Certificat de naissance";
 }
 
 <div class="certificate">
-    <div class="certificate-header">
-        <img src="~/images/DrapeauRdc.png" alt="Logo RDC" style="width: 80px; height: auto;" />
-        <div class="certificate-title">République démocratique du Congo</div>
-        <div>Ministère de l'intérieur</div>
-        <div>Commune de                                        </div>
-        <div>Certificat de naissance</div>
+
+    <!-- EN-TÊTE AVEC DEUX IMAGES ET TEXTE CENTRÉ -->
+    <div class="certificate-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+        <!-- Image gauche -->
+        <div>
+            <img src="~/images/DrapeauRdc.png" alt="Logo gauche" style="width: 80px; height: auto;" />
+        </div>
+
+        <!-- Texte centré -->
+        <div style="text-align: center; flex-grow: 1;">
+            <div class="certificate-title" style="font-weight: bold;">République démocratique du Congo</div>
+            <div>Ministère de l'intérieur</div>
+            <div>Commune de</div>
+            <div style="margin-top: 10px; font-size: 18px;">Certificat de naissance</div>
+        </div>
+
+        <!-- Image droite -->
+        <div>
+            <img src="~/images/ArmoirieRdc.png" alt="Logo droite" style="width: 80px; height: auto;" />
+        </div>
     </div>
 
+    <!-- CORPS DU CERTIFICAT -->
     <div class="certificate-body">
         <p>Le Bourgemestre de la commune de ,</p>
 
@@ -39,6 +53,7 @@
         <p>Enregistré dans le registre des naissances de la commune de [VILLE] le @Model.DateEnregistrement.ToString("dd/MM/yyyy")</p>
     </div>
 
+    <!-- SIGNATURE -->
     <div class="signature">
         <p>Fait à , le @DateTime.Now.ToString("dd/MM/yyyy")</p>
         <p>Le Bourgemestre,</p>
@@ -46,6 +61,7 @@
     </div>
 </div>
 
+<!-- BOUTONS -->
 <div class="text-center">
     <button onclick="printCertificate()" class="btn btn-primary print-button">Imprimer le certificat</button>
     <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
